@@ -1,6 +1,7 @@
 package com.mby.springcloud.userservice.domain
 
 import com.mby.springcloud.userservice.dto.RequestCreateUser
+import com.mby.springcloud.userservice.dto.UserDto
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -18,4 +19,19 @@ class UserService(
             )
         )
     }
+
+    @Transactional(readOnly = true)
+    fun getUser(id: Long): UserDto {
+        val user = userRepository.findById(id).orElseThrow { NotFoundUserException("not found user") }
+        return UserDto.of(user)
+    }
+
+    @Transactional(readOnly = true)
+    fun getAllUser(): List<UserDto> {
+        val users = userRepository.findAll()
+        return users.map { UserDto.of(it) }
+    }
+
 }
+
+class NotFoundUserException(override val message: String) : RuntimeException(message)
