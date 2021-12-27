@@ -1,4 +1,4 @@
-package com.mby.springcloud.configapp
+package com.mby.springcloud.config
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

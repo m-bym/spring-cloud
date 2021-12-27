@@ -1,4 +1,4 @@
-package com.mby.springcloud.discoveryapp
+package com.mby.springcloud.discover
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
