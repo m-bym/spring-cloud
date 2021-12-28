@@ -22,7 +22,7 @@ class UserService(
 
     @Transactional(readOnly = true)
     fun getUser(id: Long): UserDto {
-        val user = userRepository.findById(id).orElseThrow { NotFoundUserException("not found user") }
+        val user = userRepository.findById(id).orElseThrow { NotFoundUserException("not found user id $id") }
         return UserDto.of(user)
     }
 
