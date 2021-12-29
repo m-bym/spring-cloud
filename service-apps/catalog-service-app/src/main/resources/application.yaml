@@ -17,6 +17,11 @@ spring:
     password:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    generate-ddl: true
+    defer-datasource-initialization: true
 
 eureka:
   instance:
@@ -30,3 +35,7 @@ eureka:
 
 welcome:
   message: Welcome to the Catalog Service
+
+logging:
+  level:
+    com.mby.springcloud.catalogservice: debug
