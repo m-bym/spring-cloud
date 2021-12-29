@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient
 
 @EnableDiscoveryClient
 @SpringBootApplication
-open class UserServiceApp
+class UserServiceApp
 
 fun main(args: Array<String>) {
     runApplication<UserServiceApp>(*args)
