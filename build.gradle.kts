@@ -45,6 +45,9 @@ subprojects {
         implementation(kotlin("stdlib"))
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.springframework.boot:spring-boot-starter")
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.1")
+        implementation("io.jsonwebtoken:jjwt:0.9.1")
+
         developmentOnly("org.springframework.boot:spring-boot-devtools")
 
         testImplementation("org.springframework.boot:spring-boot-starter-test")

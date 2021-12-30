@@ -28,5 +28,9 @@ eureka:
       defaultZone: http://localhost:8761/eureka
 
 
+token:
+  expiration_time: 86400000
+  secret: mbym
+
 welcome:
   message: Welcome to the User Service

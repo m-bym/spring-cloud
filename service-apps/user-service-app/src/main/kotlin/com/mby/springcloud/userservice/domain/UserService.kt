@@ -2,12 +2,14 @@ package com.mby.springcloud.userservice.domain
 
 import com.mby.springcloud.userservice.dto.RequestCreateUser
 import com.mby.springcloud.userservice.dto.UserDto
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class UserService(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val passwordEncoder: BCryptPasswordEncoder
 ) {
     @Transactional
     fun createUser(request: RequestCreateUser) {
@@ -15,7 +17,7 @@ class UserService(
             User(
                 email = request.email,
                 name = request.name,
-                encryptedPwd = "encrypted${request.pwd}"
+                encryptedPwd = passwordEncoder.encode(request.pwd)
             )
         )
     }
@@ -30,6 +32,12 @@ class UserService(
     fun getAllUser(): List<UserDto> {
         val users = userRepository.findAll()
         return users.map { UserDto.of(it) }
+    }
+
+    @Transactional(readOnly = true)
+    fun getUserByEmail(email: String): UserDto {
+        val user = userRepository.findByEmail(email) ?: throw NotFoundUserException("not found user email $email")
+        return UserDto.of(user)
     }
 
 }
