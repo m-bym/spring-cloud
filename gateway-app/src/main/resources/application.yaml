@@ -48,5 +48,11 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
-token:
-  secret: mbym
+#token:
+#  secret: mbym
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans

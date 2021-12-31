@@ -12,7 +12,10 @@ class PingController(
 ) {
 
     @GetMapping("/health_check")
-    fun status() = "Its Working in User Service ${env.getProperty("local.server.port")}"
+    fun status() = "Its Working in User Service " +
+            "port : ${env.getProperty("local.server.port")} " +
+            "token secret : ${env.getProperty("token.secret")} " +
+            "token time : ${env.getProperty("token.expiration_time")}"
 
     @GetMapping("/welcome")
     fun welcome() = env.getProperty("welcome.message")
