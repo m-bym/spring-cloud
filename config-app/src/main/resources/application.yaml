@@ -9,3 +9,14 @@ spring:
       server:
         git:
           uri: https://github.com/m-bym/spring-cloud-repo.git
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, busrefresh
