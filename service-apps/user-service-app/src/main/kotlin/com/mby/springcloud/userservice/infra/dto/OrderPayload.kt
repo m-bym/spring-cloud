@@ -8,6 +8,5 @@ data class OrderPayload(
     val catalogId: Long,
     val qty: Int,
     val unitPrice: Int,
-    val totalPrice: Int,
-    val createdAt: ZonedDateTime
+    val totalPrice: Int
 )

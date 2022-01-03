@@ -8,8 +8,7 @@ data class ResponseOrder(
     val catalogId: Long,
     val qty: Int,
     val unitPrice: Int,
-    val totalPrice: Int,
-    val createdAt: ZonedDateTime = ZonedDateTime.now(),
+    val totalPrice: Int
 ) {
     companion object {
         fun of(order: OrderDto): ResponseOrder = ResponseOrder(
@@ -18,8 +17,7 @@ data class ResponseOrder(
             catalogId = order.catalogId,
             qty = order.qty,
             unitPrice = order.unitPrice,
-            totalPrice = order.totalPrice,
-            createdAt = order.createdAt
+            totalPrice = order.totalPrice
         )
     }
 }

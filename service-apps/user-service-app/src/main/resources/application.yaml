@@ -52,3 +52,7 @@ order_service:
 
 welcome:
   message: Welcome to the User Service
+
+logging:
+  level:
+    com.mby.springcloud.userservice: DEBUG
