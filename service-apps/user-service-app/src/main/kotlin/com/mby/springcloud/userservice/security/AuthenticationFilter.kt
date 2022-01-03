@@ -1,6 +1,6 @@
 package com.mby.springcloud.userservice.security
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.mby.springcloud.userservice.domain.UserService
 import com.mby.springcloud.userservice.dto.RequestLogin
 import io.jsonwebtoken.Jwts
@@ -19,11 +19,12 @@ import javax.servlet.http.HttpServletResponse
 class AuthenticationFilter(
     authenticationManager: AuthenticationManager,
     private val userService: UserService,
-    private val env: Environment
+    private val env: Environment,
+    private val objectMapper: ObjectMapper
 ) : UsernamePasswordAuthenticationFilter(authenticationManager) {
 
     override fun attemptAuthentication(request: HttpServletRequest, response: HttpServletResponse): Authentication {
-        val requestLogin = jacksonObjectMapper().readValue(request.inputStream, RequestLogin::class.java)
+        val requestLogin = objectMapper.readValue(request.inputStream, RequestLogin::class.java)
         return authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(
                 requestLogin.email,

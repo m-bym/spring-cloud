@@ -16,6 +16,10 @@ class Order(
     val catalogId: Long,
     @Column(nullable = false)
     val qty: Int,
+    @Column(nullable = false)
+    val unitPrice: Int,
+    @Column(nullable = false)
+    val totalPrice: Int,
     @Column(nullable = false, updatable = false, insertable = false)
     @ColumnDefault(value = "CURRENT_TIMESTAMP")
     val createdAt: ZonedDateTime = ZonedDateTime.now(),

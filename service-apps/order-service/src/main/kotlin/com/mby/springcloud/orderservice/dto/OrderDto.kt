@@ -8,6 +8,8 @@ data class OrderDto(
     val userId: Long,
     val catalogId: Long,
     val qty: Int,
+    val unitPrice: Int,
+    val totalPrice: Int,
     val createdAt: ZonedDateTime = ZonedDateTime.now(),
 ) {
     companion object {
@@ -15,6 +17,8 @@ data class OrderDto(
             id = order.id,
             userId = order.userId,
             catalogId = order.catalogId,
+            unitPrice = order.unitPrice,
+            totalPrice = order.totalPrice,
             qty = order.qty,
             createdAt = order.createdAt
         )

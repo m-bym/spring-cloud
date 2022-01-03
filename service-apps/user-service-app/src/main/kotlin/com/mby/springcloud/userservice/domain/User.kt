@@ -20,5 +20,6 @@ class User(
     @ColumnDefault(value = "CURRENT_TIMESTAMP")
     val createdAt: ZonedDateTime = ZonedDateTime.now(),
     @Column
+    @ColumnDefault(value = "CURRENT_TIMESTAMP")
     var updatedAt: ZonedDateTime = ZonedDateTime.now()
 )

@@ -12,12 +12,14 @@ class UserService(
     private val passwordEncoder: BCryptPasswordEncoder
 ) {
     @Transactional
-    fun createUser(request: RequestCreateUser) {
-        userRepository.save(
-            User(
-                email = request.email,
-                name = request.name,
-                encryptedPwd = passwordEncoder.encode(request.pwd)
+    fun createUser(request: RequestCreateUser): UserDto {
+        return UserDto.of(
+            userRepository.save(
+                User(
+                    email = request.email,
+                    name = request.name,
+                    encryptedPwd = passwordEncoder.encode(request.pwd)
+                )
             )
         )
     }

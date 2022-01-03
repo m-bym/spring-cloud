@@ -9,6 +9,7 @@ data class ResponseUser(
 
 data class ResponseUserOrder(
     val id: Long,
+    val catalogId: Long,
     val qty: Int,
     val unitPrice: Int,
     val totalPrice: Int

@@ -1,5 +1,6 @@
 package com.mby.springcloud.userservice.security
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.mby.springcloud.userservice.domain.UserService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -17,13 +18,14 @@ class WebSecurity(
     private val userDetailsService: UserDetailsService,
     private val passwordEncoder: BCryptPasswordEncoder,
     private val userService: UserService,
-    private val env: Environment
+    private val env: Environment,
+    private val objectMapper: ObjectMapper
 ) : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http.csrf().disable()
             .authorizeRequests()
-            .antMatchers("/actuator/**").permitAll()
-            .antMatchers(HttpMethod.GET, "/users/**").authenticated()
+            //.antMatchers("/actuator/**").permitAll()
+            //.antMatchers(HttpMethod.GET, "/users/**").authenticated()
             .anyRequest().permitAll()
             .and()
             .addFilter(authenticationFilter())
@@ -33,7 +35,7 @@ class WebSecurity(
 
     @Bean
     fun authenticationFilter(): AuthenticationFilter {
-        return AuthenticationFilter(authenticationManager(), userService, env)
+        return AuthenticationFilter(authenticationManager(), userService, env, objectMapper)
     }
 
     //인증 관련 configure

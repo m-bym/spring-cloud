@@ -26,14 +26,16 @@ class OrderService(
     }
 
     @Transactional
-    fun createOrder(userId: Long, request: RequestCreateOrder) {
+    fun createOrder(userId: Long, request: RequestCreateOrder): OrderDto {
         //TODO : Validation -> userId, catalogId, qty
         val order = Order(
             userId = userId,
             catalogId = request.catalogId,
-            qty = request.qty
+            qty = request.qty,
+            unitPrice = request.unitPrice,
+            totalPrice = request.totalPrice
         )
-        orderRepository.save(order)
+        return OrderDto.of(orderRepository.save(order))
     }
 }
 

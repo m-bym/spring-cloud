@@ -17,6 +17,11 @@ spring:
     password:
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    generate-ddl: true
+    defer-datasource-initialization: true
   rabbitmq:
     host: 127.0.0.1
     port: 5672
@@ -41,6 +46,9 @@ management:
 #token:
 #  expiration_time: 86400000
 #  secret: mbym
+
+order_service:
+  url: http://ORDER-SERVICE/%s/orders
 
 welcome:
   message: Welcome to the User Service
