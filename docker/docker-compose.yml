@@ -6,7 +6,7 @@ services:
         image: mysql:8.0.27
         container_name: mysql
         ports:
-            - 3306:3306
+            - "3306:3306"
         environment:
             MYSQL_ROOT_HOST: '%'
             MYSQL_ROOT_PASSWORD: root
@@ -17,16 +17,49 @@ services:
         volumes:
             - ./volumes/mysql/mysql.cnf:/etc/mysql/conf.d/custom.cnf
             - ./volumes/mysql/data:/var/lib/mysql
+        restart: always
         networks:
             - spring-cloud-app
     rabbitmq:
         image: rabbitmq:3-management
         container_name: rabbitmq
         ports:
-            - 5672:5672
-            - 15672:15672
+            - "5672:5672"
+            - "15672:15672"
         environment:
             TZ: Asia/Seoul
+        restart: always
+        networks:
+            - spring-cloud-app
+    zookeeper:
+        image: confluentinc/cp-zookeeper:7.0.1
+        hostname: zookeeper
+        container_name: zookeeper
+        ports:
+            - "2181:2181"
+        environment:
+            ZOOKEEPER_CLIENT_PORT: 2181
+            ZOOKEEPER_TICK_TIME: 2000
+        restart: always
+        networks:
+            - spring-cloud-app
+    broker:
+        image: confluentinc/cp-server:7.0.1
+        hostname: broker
+        container_name: broker
+        depends_on:
+            - zookeeper
+        ports:
+            - "9092:9092"
+            - "9101:9101"
+            - "29092:29092"
+        environment:
+            KAFKA_BROKER_ID: 1
+            KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+            KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092
+            KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+        restart: always
         networks:
             - spring-cloud-app
 

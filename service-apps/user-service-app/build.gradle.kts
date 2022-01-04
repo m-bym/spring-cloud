@@ -9,5 +9,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("io.jsonwebtoken:jjwt:0.9.1")
-    runtimeOnly("com.h2database:h2:1.3.176")
+    implementation ("mysql:mysql-connector-java")
+    testImplementation("com.h2database:h2:1.3.176")
+//    runtimeOnly("com.h2database:h2:1.3.176")
 }

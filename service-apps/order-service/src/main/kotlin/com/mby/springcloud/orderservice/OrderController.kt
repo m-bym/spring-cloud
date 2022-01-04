@@ -2,6 +2,7 @@ package com.mby.springcloud.orderservice
 
 import com.mby.springcloud.orderservice.domain.OrderService
 import com.mby.springcloud.orderservice.dto.ResponseOrder
+import com.mby.springcloud.orderservice.messagequeue.KafkaProducer
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

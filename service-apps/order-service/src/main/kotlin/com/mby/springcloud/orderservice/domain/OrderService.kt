@@ -2,12 +2,14 @@ package com.mby.springcloud.orderservice.domain
 
 import com.mby.springcloud.orderservice.dto.OrderDto
 import com.mby.springcloud.orderservice.dto.RequestCreateOrder
+import com.mby.springcloud.orderservice.messagequeue.KafkaProducer
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class OrderService(
-    private val orderRepository: OrderRepository
+    private val orderRepository: OrderRepository,
+    private val kafkaProducer: KafkaProducer
 ) {
     @Transactional(readOnly = true)
     fun getAllOrder(): List<OrderDto> {
@@ -35,7 +37,11 @@ class OrderService(
             unitPrice = request.unitPrice,
             totalPrice = request.totalPrice
         )
-        return OrderDto.of(orderRepository.save(order))
+
+        val savedOrderDto = OrderDto.of(orderRepository.save(order))
+        kafkaProducer.send("catalog-topic", savedOrderDto)
+
+        return savedOrderDto
     }
 }
 
